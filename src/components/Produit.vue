@@ -2,12 +2,19 @@
     <div class="col mb-5">
         <div class="card h-100">
             <!-- Product image-->
-            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+            <scr v-if="src">
+                <img class="card-img-top" :src="src" alt="..." />
+            </scr>
+            <scr v-else>
+                <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+            </scr>
             <!-- Product details-->
             <div class="card-body p-4">
                 <div class="text-center">
                     <!-- Product name-->
-                    <h5 class="fw-bolder">Popular Item</h5>
+                    <h5 class="fw-bolder">
+                        <nom>{{ nom }}</nom>
+                    </h5>
                     <!-- Product reviews-->
                     <div class="d-flex justify-content-center small text-warning mb-2">
                         <div class="bi-star-fill"></div>
@@ -17,7 +24,7 @@
                         <div class="bi-star-fill"></div>
                     </div>
                     <!-- Product price-->
-                    $40.00
+                    <price>{{ prix }}€</price>
                 </div>
             </div>
             <!-- Product actions-->
@@ -30,8 +37,11 @@
 
 <script>
 export default {
-  name: 'Section',
-  props: {
-  }
+  name: 'Produit',
+  props: [
+      'src',
+      'nom',
+      'prix'
+    ],
 }
 </script>
