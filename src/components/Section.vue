@@ -11,12 +11,12 @@
         "
       >
         <!-- PRODUCTS -->
-        <Produit
-          v-for="produit in produits"
-          v-bind:key="produit.id"
-          v-bind:src="produit.src"
-          v-bind:nom="produit.nom"
-          v-bind:prix="produit.prix"
+        <Products
+          v-for="product in products"
+          v-bind:key="product.id"
+          v-bind:src="product.src"
+          v-bind:nom="product.nom"
+          v-bind:prix="product.prix"
         />
       </div>
     </div>
@@ -24,16 +24,16 @@
 </template>
 
 <script>
-import Produit from "./Produit.vue";
+import Products from "./Products.vue";
 
 export default {
   name: "Section",
   components: {
-    Produit,
+    Products,
   },
   data: function () {
     return {
-      produits: [
+      products: [
         { id: 1, nom: 'nom1', prix: 10, src: 'img/01.jpg' },
         { id: 2, nom: 'nom2', prix: 20, src: 'img/02.jpg' },
         { id: 3, nom: 'nom3', prix: 30, src: 'img/03.jpg' },
