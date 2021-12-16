@@ -2,34 +2,35 @@
     <div class="col mb-5">
         <div class="card h-100">
             <!-- Product image-->
-            <scr v-if="src">
-                <img class="card-img-top" :src="src" alt="..." />
-            </scr>
-            <scr v-else>
+            <div v-if="src">
+                <img class="card-img-top p-3" :src="src" alt="nom"/>
+            </div>
+            <div v-else>
                 <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-            </scr>
+            </div>
             <!-- Product details-->
             <div class="card-body p-4">
                 <div class="text-center">
                     <!-- Product name-->
                     <h5 class="fw-bolder">
-                        <nom>{{ nom }}</nom>
+                        <p>{{ nom }}</p>
                     </h5>
                     <!-- Product reviews-->
                     <div class="d-flex justify-content-center small text-warning mb-2">
-                        <div class="bi-star-fill"></div>
-                        <div class="bi-star-fill"></div>
-                        <div class="bi-star-fill"></div>
-                        <div class="bi-star-fill"></div>
-                        <div class="bi-star-fill"></div>
+                            <div v-for="star in stars" :key="star.id">
+                                <div class="bi-star-fill"></div>
+                            </div>
+                            <div v-for="star in 5-stars" :key="star.id">
+                                <div class="bi-star"></div>
+                            </div>
                     </div>
                     <!-- Product price-->
-                    <price>{{ prix }}€</price>
+                    <p>{{ prix }}€</p>
                 </div>
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                <div @click="addToCart(id)" class="text-center"><a class="btn btn-outline-dark mt-auto">Add to cart</a></div>
             </div>
         </div>
     </div>
@@ -38,10 +39,24 @@
 <script>
 export default {
   name: 'Produit',
+  methods: {
+      addToCart(id) {
+          this.$emit('addToCart', id);
+      }
+  },
   props: [
+      'id',
       'src',
       'nom',
-      'prix'
+      'prix',
+      'stars'
     ],
 }
 </script>
+
+<style>
+    img {
+        max-height: 150px;
+        max-width: 100%;
+    }
+</style>
