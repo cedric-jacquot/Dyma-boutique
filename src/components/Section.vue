@@ -2,18 +2,21 @@
   <!-- Section-->
   <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
-      <p @addTocart="id = $event">id : {{ id }}</p>
+      <p>id : {{ id }}</p>
       <div
-        class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
+        class="
+          row
+          gx-4 gx-lg-5
+          row-cols-2 row-cols-md-3 row-cols-xl-4
+          justify-content-center
+        "
       >
         <!-- PRODUCTS -->
         <Products
           v-for="product in products"
           :key="product.id"
-          :src="product.src"
-          :nom="product.nom"
-          :prix="product.prix"
-          :stars="product.stars"
+          :product="product"
+          @addToCart="id = $event"
         />
       </div>
     </div>
