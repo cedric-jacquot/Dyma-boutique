@@ -2,8 +2,8 @@
     <div class="col mb-5">
         <div class="card h-100">
             <!-- Product image-->
-            <div v-if="src">
-                <img class="card-img-top p-3" :src="src" alt="nom"/>
+            <div v-if="product.src">
+                <img class="card-img-top p-3" :src="product.src" alt="nom"/>
             </div>
             <div v-else>
                 <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
@@ -13,19 +13,19 @@
                 <div class="text-center">
                     <!-- Product name-->
                     <h5 class="fw-bolder">
-                        <p>{{ nom }}</p>
+                        <p>{{ product.nom }}</p>
                     </h5>
                     <!-- Product reviews-->
                     <div class="d-flex justify-content-center small text-warning mb-2">
-                            <div v-for="star in stars" :key="star.id">
+                            <div v-for="star in product.stars" :key="star.id">
                                 <div class="bi-star-fill"></div>
                             </div>
-                            <div v-for="star in 5-stars" :key="star.id">
+                            <div v-for="star in 5 - (product.stars)" :key="star.id">
                                 <div class="bi-star"></div>
                             </div>
                     </div>
                     <!-- Product price-->
-                    <p>{{ prix }}€</p>
+                    <p>{{ product.prix }}€</p>
                 </div>
             </div>
             <!-- Product actions-->
@@ -45,11 +45,7 @@ export default {
       }
   },
   props: [
-      'id',
-      'src',
-      'nom',
-      'prix',
-      'stars'
+      'product',
     ],
 }
 </script>
