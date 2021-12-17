@@ -30,7 +30,7 @@
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div @click="addToCart(id)" class="text-center"><a class="btn btn-outline-dark mt-auto">Add to cart</a></div>
+                <div @click="addToCart(product)" class="text-center"><a class="btn btn-outline-dark mt-auto">Add to cart</a></div>
             </div>
         </div>
     </div>
@@ -40,8 +40,8 @@
 export default {
   name: 'Produit',
   methods: {
-      addToCart(id) {
-          this.$emit('addToCart', id);
+      addToCart(product) {
+          this.$emit('addToCart', product);
       }
   },
   props: [
