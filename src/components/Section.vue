@@ -11,7 +11,7 @@
           v-for="product in products"
           :key="product.id"
           :product="product"
-          @addToCart="id = $event"
+          @addToCart="cart.push($event)"
         />
       </div>
     </div>
