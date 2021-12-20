@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Products from "./Products.vue";
+import Products from "./Products/Products.vue";
 
 export default {
   name: "Section",
