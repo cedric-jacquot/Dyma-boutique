@@ -37,16 +37,20 @@
 </template>
 
 <script>
+import { eventBus } from "../main.js";
+
 export default {
   name: 'Produit',
   methods: {
       addToCart(product) {
-          this.$emit('addToCart', product);
+          this.cart.push(product);
+          eventBus.$emit('update:cart', this.cart);
       }
   },
   props: [
       'product',
-    ],
+      'cart',
+  ],
 }
 </script>
 

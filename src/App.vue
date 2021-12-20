@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <Nav/>
+    <Nav :cart="cart"/>
     <Header/>
-    <Section/>
+    <Section :cart="cart"/>
     <Footer/>
   </div>
 </template>
@@ -12,6 +12,8 @@ import Nav from './components/Nav.vue';
 import Header from './components/Header.vue';
 import Section from './components/Section.vue';
 import Footer from './components/Footer.vue';
+import { eventBus } from "./main.js";
+
 
 export default {
   name: 'App',
@@ -20,6 +22,12 @@ export default {
     Header,
     Section,
     Footer,
-  }
+  },
+  created() {
+    this.cart = eventBus.cart;
+    eventBus.$on('update:cart', (cart) => {
+    this.cart = cart;
+    })
+  },
 }
 </script>

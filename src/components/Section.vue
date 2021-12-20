@@ -2,13 +2,6 @@
   <!-- Section-->
   <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
-      <form class="d-flex flex-row-reverse mb-3">
-        <button class="btn btn-outline-dark" type="submit">
-            <i class="bi-cart-fill me-1"></i>
-            Cart
-            <span class="badge bg-dark text-white ms-1 rounded-pill">{{ cart.length }}</span>
-        </button>
-      </form>
       <div
         class="
           row
@@ -22,7 +15,7 @@
           v-for="product in products"
           :key="product.id"
           :product="product"
-          @addToCart="cart.push($event)"
+          :cart="cart"
         />
       </div>
     </div>
@@ -37,9 +30,8 @@ export default {
   components: {
     Products,
   },
-  data: function () {
+  data() {
     return {
-      cart: [],
       products: [
         { id: 1, nom: "iPhone", prix: 10, src: "img/01.png", stars: 1 },
         { id: 2, nom: "AirPods", prix: 20, src: "img/02.png", stars: 2 },
@@ -49,6 +41,6 @@ export default {
       ],
     };
   },
-  props: {},
+  props: ['cart'],
 };
 </script>
