@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import ProductsItem from "./Products/Products.vue";
+import ProductsItem from "./Products.vue";
 import { eventBus } from "../main.js";
 
 export default {
