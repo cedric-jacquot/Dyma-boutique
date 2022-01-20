@@ -29,9 +29,7 @@ export const eventBus = new Vue({
     },
     methods: {
         addToCart(product) {
-            //this.cart = [...this.cart, product];
             this.cart[(product.id - 1)].quantity = this.cart[(product.id - 1)].quantity + 1;
-            //this.$emit('update:cart', this.cart.slice());
             this.$emit('update:cart', this.cartQuantities());
             ;
         },
@@ -41,7 +39,16 @@ export const eventBus = new Vue({
                 this.totalCart += product.quantity;
             }
             return this.totalCart;
-        }
+        },
+        quantityMinus(product) {
+            if (this.cart[product.id - 1].quantity > 0) {
+                this.cart[(product.id - 1)].quantity = this.cart[(product.id - 1)].quantity - 1;
+                this.$emit('update:cart', this.cartQuantities());
+            }
+        },
+        quantityPlus(product) {
+            this.addToCart(product);
+        },
     },
 });
 

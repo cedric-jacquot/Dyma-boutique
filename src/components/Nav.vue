@@ -73,18 +73,31 @@
                             centered
                             title="Cart"
                         >
-                            <!-- <pre class="my-4">{{ cart }}</pre> -->
-                            <div
-                                class="d-flex"
-                                v-for = "product in cart"
-                                :key = "product.id"
-                                :product = "product"
-                            >
-                                <!-- picture product -->
-                                <img class="cart-picture" :src="product.src" alt="">
-                                <div class="align-self-center">
-                                    <p>{{ product.nom }} <span class="text-secondary">{{ product.prix }}€</span> x {{ product.quantity }}</p>
+                            <div v-if="totalCart > 0">
+                                <div
+                                    v-for = "product in cart"
+                                    :key = "product.id"
+                                    :product = "product"
+                                >
+                                    <div v-if="product.quantity > 0" class="d-flex d-flex justify-content-between align-items-center m-2 my-4">
+                                        <div>
+                                            <img class="cart-picture m-0" :src="product.src" alt="">
+                                        </div>
+                                        <div>
+                                            <p class="m-0">{{ product.nom }} 
+                                                <span class="text-secondary">{{ product.prix }}€</span>
+                                            </p>
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <button type="button" class="btn btn-outline-secondary btn-sm" @click="quantityMinus(product)">-</button>
+                                            <p class="m-0 mx-3">{{ product.quantity }}</p>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm" @click="quantityPlus(product)">+</button>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                            <div v-else>
+                                <p class="m-0">Your cart is empty</p>
                             </div>
                         </b-modal>
                     </div>
@@ -106,15 +119,19 @@ export default {
         }
     },
     methods: {
-        //
+        quantityMinus(product) {
+            eventBus.quantityMinus(product);
+        }
+       ,
+        quantityPlus(product) {
+            eventBus.quantityPlus(product);
+        },
     },
     created() {
         this.cart = eventBus.cart;
         this.totalCart = eventBus.totalCart;
         eventBus.$on('update:cart', (totalCart) => {
-            //this.cart = cart;
             this.totalCart = totalCart;
-            console.log(totalCart);
         });
     },
 };
