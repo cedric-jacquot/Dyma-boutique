@@ -64,16 +64,28 @@
                             Cart
                             <span
                                 class="badge bg-dark text-white ms-1 rounded-pill"
-                                >{{ cart.length }}</span
+                                >{{ totalCart }}</span
                             >
                         </b-button>
 
                         <b-modal
                             id="modal-center"
                             centered
-                            title="BootstrapVue"
+                            title="Cart"
                         >
-                            <pre class="my-4">{{ cart }}</pre>
+                            <!-- <pre class="my-4">{{ cart }}</pre> -->
+                            <div
+                                class="d-flex"
+                                v-for = "product in cart"
+                                :key = "product.id"
+                                :product = "product"
+                            >
+                                <!-- picture product -->
+                                <img class="cart-picture" :src="product.src" alt="">
+                                <div class="align-self-center">
+                                    <p>{{ product.nom }} <span class="text-secondary">{{ product.prix }}€</span> x {{ product.quantity }}</p>
+                                </div>
+                            </div>
                         </b-modal>
                     </div>
                 </form>
@@ -90,13 +102,29 @@ export default {
     data() {
         return {
             cart: [],
+            totalCart: 0,
         }
+    },
+    methods: {
+        //
     },
     created() {
         this.cart = eventBus.cart;
-        eventBus.$on('update:cart', (cart) => {
-            this.cart = cart;
+        this.totalCart = eventBus.totalCart;
+        eventBus.$on('update:cart', (totalCart) => {
+            //this.cart = cart;
+            this.totalCart = totalCart;
+            console.log(totalCart);
         });
     },
 };
 </script>
+
+<style>
+.cart-picture {
+    margin: 1em;
+    margin-right: 2em;
+    max-width: 100px;
+    max-height: 60px;
+}
+</style>
