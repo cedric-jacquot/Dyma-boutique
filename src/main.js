@@ -1,5 +1,5 @@
 import Vue from "vue";
-import App from "./App.vue";
+import App from "./components/App.vue";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
@@ -31,7 +31,6 @@ export const eventBus = new Vue({
         addToCart(product) {
             this.cart[(product.id - 1)].quantity = this.cart[(product.id - 1)].quantity + 1;
             this.$emit('update:cart', this.cartQuantities());
-            ;
         },
         cartQuantities() {
             this.totalCart = 0;
