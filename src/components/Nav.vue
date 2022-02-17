@@ -59,7 +59,10 @@
                 </ul>
                 <form class="d-flex">
                     <div>
-                        <b-button  variant="btn btn-outline-dark mt-auto" v-b-modal.modal-center>
+                        <b-button
+                            variant="btn btn-outline-dark mt-auto"
+                            v-b-modal.modal-center
+                        >
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span
@@ -68,32 +71,59 @@
                             >
                         </b-button>
 
-                        <b-modal
-                            id="modal-center"
-                            centered
-                            title="Cart"
-                        >
+                        <b-modal id="modal-center" centered title="Cart">
                             <div v-if="totalCart > 0">
                                 <div
-                                    v-for = "product in cart"
-                                    :key = "product.id"
-                                    :product = "product"
+                                    v-for="product in cart"
+                                    :key="product.id"
+                                    :product="product"
                                 >
-                                    <div v-if="product.quantity > 0" class="d-flex d-flex justify-content-between align-items-center m-2 my-4">
+                                    <div
+                                        v-if="product.quantity > 0"
+                                        class="d-flex d-flex justify-content-between align-items-center m-2 my-4"
+                                    >
                                         <div>
-                                            <img class="cart-picture m-0" :src="product.src" alt="">
+                                            <img
+                                                class="cart-picture m-0"
+                                                :src="product.src"
+                                                alt=""
+                                            />
                                         </div>
                                         <div>
-                                            <p class="m-0">{{ product.nom }} 
-                                                <span class="text-secondary">{{ product.prix }}€</span>
+                                            <p class="m-0">
+                                                {{ product.nom }}
+                                                <span class="text-secondary"
+                                                    >{{ product.prix }}€</span
+                                                >
                                             </p>
                                         </div>
-                                        <div class="d-flex justify-content-between">
-                                            <button type="button" class="btn btn-outline-secondary btn-sm" @click="quantityMinus(product)">-</button>
-                                            <p class="m-0 mx-3">{{ product.quantity }}</p>
-                                            <button type="button" class="btn btn-outline-secondary btn-sm" @click="quantityPlus(product)">+</button>
+                                        <div
+                                            class="d-flex justify-content-between"
+                                        >
+                                            <button
+                                                type="button"
+                                                class="btn btn-outline-secondary btn-sm"
+                                                @click="quantityMinus(product)"
+                                            >
+                                                -
+                                            </button>
+                                            <p class="m-0 mx-3">
+                                                {{ product.quantity }}
+                                            </p>
+                                            <button
+                                                type="button"
+                                                class="btn btn-outline-secondary btn-sm"
+                                                @click="quantityPlus(product)"
+                                            >
+                                                +
+                                            </button>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="d-flex flex-row-reverse">
+                                    <p class="m-0 fs-5">
+                                        TOTAL : {{ cartSum }} €
+                                    </p>
                                 </div>
                             </div>
                             <div v-else>
@@ -108,30 +138,32 @@
 </template>
 
 <script>
-import { eventBus } from "../main.js";
+import { eventBus } from "../main";
 
 export default {
-    name: 'NavItem',
+    name: "NavItem",
     data() {
         return {
             cart: [],
             totalCart: 0,
-        }
+            cartSum: 0,
+        };
     },
     methods: {
         quantityMinus(product) {
             eventBus.quantityMinus(product);
-        }
-       ,
+        },
         quantityPlus(product) {
             eventBus.quantityPlus(product);
         },
     },
     created() {
         this.cart = eventBus.cart;
-        this.totalCart = eventBus.totalCart;
-        eventBus.$on('update:cart', (totalCart) => {
+        eventBus.$on("update:cart", (totalCart) => {
             this.totalCart = totalCart;
+        });
+        eventBus.$on("update:cartSum", (cartSum) => {
+            this.cartSum = cartSum;
         });
     },
 };

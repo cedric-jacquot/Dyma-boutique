@@ -6,7 +6,7 @@
                 class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
             >
                 <!-- PRODUCTS -->
-                <ProductsItem
+                <Products
                     v-for="product in products"
                     :key="product.id"
                     :product="product"
@@ -17,13 +17,13 @@
 </template>
 
 <script>
-import ProductsItem from "./Products.vue";
-import { eventBus } from "../../../../main.js";
+import Products from "./Products";
+import { eventBus } from "../../../../main";
 
 export default {
     name: "SectionItem",
     components: {
-        ProductsItem,
+        Products,
     },
     data() {
         return {

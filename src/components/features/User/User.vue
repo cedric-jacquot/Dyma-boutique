@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Products from './Shop/Products.vue';
-import Section from './Shop/Section.vue';
+import Products from './Shop/Products';
+import Section from './Shop/Section';
 
 export default {
     name: "App",

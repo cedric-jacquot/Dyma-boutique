@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import AdminProductForm from './AdminProductForm.vue';
+import AdminProductForm from './AdminProductForm';
 
 export default {
-    name: 'App',
+    name: 'Admin',
     components: {
         AdminProductForm,
     },

@@ -1,22 +1,22 @@
 <template>
-    <div id='app'>
-        <Nav/>
-        <Header/>
-        <User/>
-        <Admin/>
-        <Footer/>
+    <div id="app">
+        <Nav />
+        <Header />
+        <User />
+        <Admin />
+        <Footer />
     </div>
 </template>
 
 <script>
-import Nav from './Nav.vue';
-import Header from './features/Header.vue';
-import User from './features/User/User.vue';
-import Admin from './features/Admin/Admin.vue'
-import Footer from './features/Footer.vue';
+import Nav from "./Nav";
+import Header from "./features/Header";
+import User from "./features/User/User";
+import Admin from "./features/Admin/Admin";
+import Footer from "./features/Footer";
 
 export default {
-    name: 'App',
+    name: "App",
     components: {
         Nav,
         Header,

@@ -23,11 +23,9 @@
                     <div
                         class="d-flex justify-content-center small text-warning mb-2"
                     >
-                        <div v-for="star in product.stars" :key="star.id">
-                            <div class="bi-star-fill"></div>
+                        <div v-for="star in product.stars" :key="star.id" class="bi-star-fill">
                         </div>
-                        <div v-for="star in 5 - product.stars" :key="star.id">
-                            <div class="bi-star"></div>
+                        <div v-for="star in 5 - product.stars" :key="star.id" class="bi-star">
                         </div>
                     </div>
                     <!-- Product price-->
@@ -45,16 +43,16 @@
 </template>
 
 <script>
-import { eventBus } from "../../../../main.js";
+import { eventBus } from "../../../../main";
 
 export default {
-    name: "ProductsItem",
+    name: "Products",
+    props: ['product'],
     methods: {
         addToCart() {
             eventBus.addToCart({ ...this.product });
         },
     },
-    props: ['product'],
 };
 </script>
 
