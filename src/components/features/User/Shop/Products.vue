@@ -46,7 +46,7 @@
 import { eventBus } from "../../../../main";
 
 export default {
-    name: "Products",
+    name: "TheProducts",
     props: ['product'],
     methods: {
         addToCart() {
