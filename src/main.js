@@ -3,7 +3,7 @@ import App from './components/App';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
-import "bootstrap-icons/font/bootstrap-icons.css";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
@@ -28,6 +28,7 @@ export const eventBus = new Vue({
         ],
         totalCart: 0,
         cartSum: 0,
+        page: 'Section',
     },
     methods: {
         addToCart(product) {
@@ -58,6 +59,10 @@ export const eventBus = new Vue({
                 this.cartSum += key.prix * key.quantity;
             }
             return this.cartSum;
+        },
+        changePage(page) {
+            this.page = page;
+            this.$emit('update:page', this.page);
         },
     },
 });

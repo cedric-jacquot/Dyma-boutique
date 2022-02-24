@@ -17,23 +17,25 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#!"
+                        <a class="nav-link" :class="{ active: page === 'Section' }" @click="changePage('Section')"
                             >Home</a
                         >
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#!">About</a>
+                        <a class="nav-link" :class="{ active: page === 'Admin' }" @click="changePage('Admin')"
+                            >Admin</a
+                        >
                     </li>
                     <li class="nav-item dropdown">
-                        <a
-                            class="nav-link dropdown-toggle"
-                            id="navbarDropdown"
-                            href="#"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            >Shop</a
-                        >
+                        <!-- <a
+              class="nav-link dropdown-toggle"
+              id="navbarDropdown"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              >Shop</a
+            > -->
                         <ul
                             class="dropdown-menu"
                             aria-labelledby="navbarDropdown"
@@ -141,39 +143,50 @@
 import { eventBus } from "../main";
 
 export default {
-    name: "NavItem",
-    data() {
-        return {
-            cart: [],
-            totalCart: 0,
-            cartSum: 0,
-        };
+  name: "NavItem",
+  data() {
+    return {
+      cart: [],
+      totalCart: 0,
+      cartSum: 0,
+      page: eventBus.page,
+    };
+  },
+  methods: {
+    quantityMinus(product) {
+      eventBus.quantityMinus(product);
     },
-    methods: {
-        quantityMinus(product) {
-            eventBus.quantityMinus(product);
-        },
-        quantityPlus(product) {
-            eventBus.quantityPlus(product);
-        },
+    quantityPlus(product) {
+      eventBus.quantityPlus(product);
     },
-    created() {
-        this.cart = eventBus.cart;
-        eventBus.$on("update:cart", (totalCart) => {
-            this.totalCart = totalCart;
-        });
-        eventBus.$on("update:cartSum", (cartSum) => {
-            this.cartSum = cartSum;
-        });
-    },
+    changePage(page) {
+        eventBus.changePage(page);
+    }
+  },
+  created() {
+    this.cart = eventBus.cart;
+    eventBus.$on("update:cart", (totalCart) => {
+        this.totalCart = totalCart;
+    });
+    eventBus.$on("update:cartSum", (cartSum) => {
+        this.cartSum = cartSum;
+    });
+    eventBus.$on('update:page', (page) => {
+        this.page = page;
+    });
+  },
 };
 </script>
 
-<style>
+<style scoped>
 .cart-picture {
     margin: 1em;
     margin-right: 2em;
     max-width: 100px;
     max-height: 60px;
+}
+
+a {
+    cursor: pointer;
 }
 </style>

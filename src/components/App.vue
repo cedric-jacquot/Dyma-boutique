@@ -2,27 +2,38 @@
     <div id="app">
         <Nav />
         <Header />
-        <User />
-        <Admin />
+        <component :is='page'></component>
         <Footer />
     </div>
 </template>
 
 <script>
-import Nav from "./Nav";
-import Header from "./features/Header";
-import User from "./features/User/User";
+import { eventBus } from "../main";
+
 import Admin from "./features/Admin/Admin";
 import Footer from "./features/Footer";
+import Header from "./features/Header";
+import Nav from "./Nav";
+import Section from "./features/User/Shop/Section.vue";
 
 export default {
     name: "App",
     components: {
-        Nav,
-        Header,
-        User,
         Admin,
         Footer,
+        Header,
+        Nav,
+        Section,
+    },
+    data() {
+        return {
+            page: eventBus.page,
+        }
+    },
+    created() {
+        eventBus.$on('update:page', (page) => {
+            this.page = page;
+        })
     },
 };
 </script>
