@@ -1,5 +1,5 @@
 <template>
-    <div id='admin-product-form'>
+    <div id='admin-product-form' class="d-flex justify-content-center m-5">
         <AdminProductForm/>
     </div>
 </template>
