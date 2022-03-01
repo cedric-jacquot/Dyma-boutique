@@ -17,14 +17,14 @@ export const eventBus = new Vue({
             { id: 2, nom: "AirPods", prix: 20, src: "img/02.png", quantity: 0 },
             { id: 3, nom: "MacBookAir", prix: 30, src: "img/03.jpg", quantity: 0 },
             { id: 4, nom: "iPad", prix: 40, src: "img/04.png", quantity: 0 },
-            //{ id: 5, nom: "Watch", prix: 50, src: "img/05.png", quantity: 0 },
+            { id: 5, nom: "Watch", prix: 50, src: "img/05.png", quantity: 0 },
         ],
         products: [
             { id: 1, nom: "iPhone", prix: 10, src: "img/01.png", stars: 1 },
             { id: 2, nom: "AirPods", prix: 20, src: "img/02.png", stars: 2 },
             { id: 3, nom: "MacBookAir", prix: 30, src: "img/03.jpg", stars: 3 },
             { id: 4, nom: "iPad", prix: 40, src: "img/04.png", stars: 4 },
-            //{ id: 5, nom: "Watch", prix: 50, src: "img/05.png", stars: 5 },
+            { id: 5, nom: "Watch", prix: 50, src: "img/05.png", stars: 5 },
         ],
         totalCart: 0,
         cartSum: 0,
@@ -63,6 +63,9 @@ export const eventBus = new Vue({
         changePage(page) {
             this.page = page;
             this.$emit('update:page', this.page);
+        },
+        addProduct(product) {
+
         },
     },
 });
