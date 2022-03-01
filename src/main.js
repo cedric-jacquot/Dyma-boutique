@@ -12,41 +12,35 @@ Vue.config.productionTip = false;
 
 export const eventBus = new Vue({
     data: {
-        cart: [
-            { id: 1, nom: "iPhone", prix: 10, src: "img/01.png", quantity: 0 },
-            { id: 2, nom: "AirPods", prix: 20, src: "img/02.png", quantity: 0 },
-            { id: 3, nom: "MacBookAir", prix: 30, src: "img/03.jpg", quantity: 0 },
-            { id: 4, nom: "iPad", prix: 40, src: "img/04.png", quantity: 0 },
-            { id: 5, nom: "Watch", prix: 50, src: "img/05.png", quantity: 0 },
-        ],
         products: [
-            { id: 1, nom: "iPhone", prix: 10, src: "img/01.png", stars: 1 },
-            { id: 2, nom: "AirPods", prix: 20, src: "img/02.png", stars: 2 },
-            { id: 3, nom: "MacBookAir", prix: 30, src: "img/03.jpg", stars: 3 },
-            { id: 4, nom: "iPad", prix: 40, src: "img/04.png", stars: 4 },
-            { id: 5, nom: "Watch", prix: 50, src: "img/05.png", stars: 5 },
+            { id: 1, nom: "iPhone", prix: 10, src: "img/01.png", stars: 1, quantity: 0 },
+            { id: 2, nom: "AirPods", prix: 20, src: "img/02.png", stars: 2, quantity: 0 },
+            { id: 3, nom: "MacBookAir", prix: 30, src: "img/03.jpg", stars: 3, quantity: 0 },
+            { id: 4, nom: "iPad", prix: 40, src: "img/04.png", stars: 4, quantity: 0 },
+            { id: 5, nom: "Watch", prix: 50, src: "img/05.png", stars: 5, quantity: 0 },
         ],
         totalCart: 0,
         cartSum: 0,
         page: 'Section',
+        id: null,
     },
     methods: {
         addToCart(product) {
-            this.cart[product.id - 1].quantity = this.cart[product.id - 1].quantity + 1;
-            this.$emit("update:cart", this.cartQuantities());
+            this.products[product.id - 1].quantity = this.products[product.id - 1].quantity + 1;
+            this.$emit("update:products", this.cartQuantities());
             this.$emit("update:cartSum", this.totalPriceCart());
         },
         cartQuantities() {
             this.totalCart = 0;
-            for (const product of this.cart) {
+            for (const product of this.products) {
                 this.totalCart += product.quantity;
             }
             return this.totalCart;
         },
         quantityMinus(product) {
-            if (this.cart[product.id - 1].quantity > 0) {
-                this.cart[product.id - 1].quantity = this.cart[product.id - 1].quantity - 1;
-                this.$emit("update:cart", this.cartQuantities());
+            if (this.products[product.id - 1].quantity > 0) {
+                this.products[product.id - 1].quantity = this.products[product.id - 1].quantity - 1;
+                this.$emit("update:products", this.cartQuantities());
                 this.$emit("update:cartSum", this.totalPriceCart());
             }
         },
@@ -55,7 +49,7 @@ export const eventBus = new Vue({
         },
         totalPriceCart() {
             this.cartSum = 0;
-            for (const key of this.cart) {
+            for (const key of this.products) {
                 this.cartSum += key.prix * key.quantity;
             }
             return this.cartSum;
@@ -64,8 +58,20 @@ export const eventBus = new Vue({
             this.page = page;
             this.$emit('update:page', this.page);
         },
-        addProduct(product) {
-
+        createProduct(product) {
+            if (this.id) {
+                ++this.id;
+            } else {
+                this.id = this.products.length + 1;
+            }
+            this.products.push({
+                id: this.id,
+                nom: product.nom,
+                prix: product.prix,
+                src: product.src,
+                stars: 0,
+                quantity: 0,
+            })
         },
     },
 });

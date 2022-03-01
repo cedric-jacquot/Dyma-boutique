@@ -76,7 +76,7 @@
                         <b-modal id="modal-center" centered title="Cart">
                             <div v-if="totalCart > 0">
                                 <div
-                                    v-for="product in cart"
+                                    v-for="product in products"
                                     :key="product.id"
                                     :product="product"
                                 >
@@ -146,7 +146,7 @@ export default {
   name: "NavItem",
   data() {
     return {
-      cart: [],
+      products: [],
       totalCart: 0,
       cartSum: 0,
       page: eventBus.page,
@@ -164,8 +164,8 @@ export default {
     }
   },
   created() {
-    this.cart = eventBus.cart;
-    eventBus.$on("update:cart", (totalCart) => {
+    this.products = eventBus.products;
+    eventBus.$on("update:products", (totalCart) => {
         this.totalCart = totalCart;
     });
     eventBus.$on("update:cartSum", (cartSum) => {

@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { eventBus } from '../../../main';
+import { eventBus } from "../../../main";
 export default {
     name: "AdminProductForm",
     data() {
@@ -56,13 +56,13 @@ export default {
     methods: {
         trySubmit() {
             if (this.isValid()) {
-                this.product = {
-                nom: this.form.title,
-                prix: this.form.price,
-                src: this.form.picture,
-            },
-                eventBus.addProduct(this.product);
-                console.log(this.form);
+                (this.product = {
+                    nom: this.form.title,
+                    prix: this.form.price,
+                    src: this.form.picture,
+                }),
+                eventBus.createProduct(this.product);
+                //console.log(this.form);
             }
         },
         isValid() {
