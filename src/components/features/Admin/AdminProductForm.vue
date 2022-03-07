@@ -3,18 +3,28 @@
         <h4>Ajouter un produit :</h4>
         <div class="form-group my-2">
             <label>Image</label>
-            <input v-model="form.picture" type="text" class="form-control" />
+            <input
+                v-model="form.picture"
+                type="text"
+                class="form-control"
+                placeholder="img/01.png"
+                value="off"
+            />
         </div>
         <div class="form-group my-2">
             <label>Titre</label>
-            <input v-model="form.title" type="text" class="form-control" />
+            <input
+                v-model="form.title"
+                type="text"
+                class="form-control"
+                value="titre"
+            />
         </div>
         <div class="form-group my-2">
             <label>Description</label>
-            <textarea
-                v-model="form.description"
-                class="form-control"
-            ></textarea>
+            <textarea v-model="form.description" class="form-control">
+                description
+            </textarea>
         </div>
         <div class="form-group my-2">
             <label>Prix</label>
@@ -22,6 +32,7 @@
                 v-model.number="form.price"
                 type="number"
                 class="form-control"
+                value="1000"
             />
         </div>
         <ul v-if="errors.length" class="text-danger">
@@ -30,10 +41,6 @@
             </li>
         </ul>
         <button class="btn btn-primary mt-4">Ajouter</button>
-        <pre>
-            {{ form }}
-            {{ errors }}
-        </pre>
     </form>
 </template>
 
@@ -56,14 +63,18 @@ export default {
     methods: {
         trySubmit() {
             if (this.isValid()) {
-                (this.product = {
-                    nom: this.form.title,
-                    prix: this.form.price,
-                    src: this.form.picture,
-                }),
-                eventBus.createProduct(this.product);
-                //console.log(this.form);
+                eventBus.createProduct({ ...this.form });
+                this.resetForm();
+                eventBus.changePage('Section');
             }
+        },
+        resetForm() {
+            this.form = {
+                picture: "",
+                title: "",
+                description: "",
+                price: "",
+            };
         },
         isValid() {
             this.errors = [];

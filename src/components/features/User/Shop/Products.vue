@@ -3,7 +3,7 @@
         <div class="card h-100">
             <!-- Product image-->
             <div v-if="product.src">
-                <img class="card-img-top p-3" :src="product.src" alt="nom" />
+                <img class="card-img-top p-3" :src="product.src" alt="name" />
             </div>
             <div v-else>
                 <img
@@ -17,7 +17,7 @@
                 <div class="text-center">
                     <!-- Product name-->
                     <h5 class="fw-bolder">
-                        <p>{{ product.nom }}</p>
+                        <p>{{ product.name }}</p>
                     </h5>
                     <!-- Product reviews-->
                     <div
@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     <!-- Product price-->
-                    <p>{{ product.prix }}€</p>
+                    <p>{{ product.price }}€</p>
                 </div>
             </div>
             <!-- Product actions-->

@@ -93,9 +93,9 @@
                                         </div>
                                         <div>
                                             <p class="m-0">
-                                                {{ product.nom }}
+                                                {{ product.name }}
                                                 <span class="text-secondary"
-                                                    >{{ product.prix }}€</span
+                                                    >{{ product.price }}€</span
                                                 >
                                             </p>
                                         </div>
