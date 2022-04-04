@@ -123,7 +123,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row-reverse">
-                                    <p class="m-0 fs-5">
+                                    <p class="m-0 fs-5 align-bottom">
                                         TOTAL : {{ cartSum }} €
                                     </p>
                                 </div>
