@@ -1,5 +1,8 @@
 <template>
-    <form @submit.prevent="trySubmit" class="d-flex flex-column w-25">
+    <form
+        @submit.prevent="trySubmit"
+        class="d-flex flex-column w-100"
+    >
         <h4>Ajouter un produit :</h4>
         <div class="form-group my-2">
             <label>Image</label>
@@ -65,7 +68,7 @@ export default {
             if (this.isValid()) {
                 eventBus.createProduct({ ...this.form });
                 this.resetForm();
-                eventBus.changePage('Section');
+                eventBus.changePage("Section");
             }
         },
         resetForm() {

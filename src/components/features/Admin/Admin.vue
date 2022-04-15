@@ -8,7 +8,7 @@
 import AdminProductForm from './AdminProductForm';
 
 export default {
-    name: 'Admin',
+    name: 'AdminItem',
     components: {
         AdminProductForm,
     },
