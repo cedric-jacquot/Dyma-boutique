@@ -5,17 +5,12 @@
             <a class="navbar-brand" href="#!">Boutique VueJs</a>
             <button
                 class="navbar-toggler"
-                v-trigger-collapse="'navbarSupportedContent'"
+                v-trigger-collapse="'navbar-collapse'"
                 type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
             >
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item">
                         <a
@@ -36,108 +31,95 @@
                 </ul>
                 <!-- Button trigger modal -->
                 <button
+                    v-trigger-cartModal="'cart-modal'"
                     type="button"
                     class="btn btn-outline-dark"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
+                    @click="addElementBackground"
                 >
                     Cart
-                    <span class="badge bg-dark text-white ms-1 rounded-pill">{{
-                        totalCart
-                    }}</span>
+                    <span class="badge bg-dark text-white ms-1 rounded-pill">
+                        {{ totalCart }}
+                    </span>
                 </button>
-
-                <!-- Modal -->
-                <div
-                    class="modal fade"
-                    id="exampleModal"
-                    tabindex="-1"
-                    aria-labelledby="exampleModalLabel"
-                    aria-hidden="true"
-                >
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">
-                                    Cart
-                                </h5>
-                                <button
-                                    type="button"
-                                    class="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                ></button>
-                            </div>
-                            <div class="modal-body">
-                                <div v-if="totalCart > 0">
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="cart-modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">
+                                Cart
+                            </h5>
+                            <button
+                                id="close-button"
+                                type="button"
+                                class="btn-close"
+                                @click="modalClose"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <div v-if="totalCart > 0">
+                                <div
+                                    v-for="product in products"
+                                    :key="product.id"
+                                    :product="product"
+                                >
                                     <div
-                                        v-for="product in products"
-                                        :key="product.id"
-                                        :product="product"
+                                        v-if="product.quantity > 0"
+                                        class="d-flex d-flex justify-content-between align-items-center m-2 my-4"
                                     >
+                                        <div>
+                                            <img
+                                                class="cart-picture m-0"
+                                                :src="product.src"
+                                                alt=""
+                                            />
+                                        </div>
+                                        <div>
+                                            <p class="m-0">
+                                                {{ product.name }}
+                                                <span class="text-secondary"
+                                                    >{{ product.price }}€</span
+                                                >
+                                            </p>
+                                        </div>
                                         <div
-                                            v-if="product.quantity > 0"
-                                            class="d-flex d-flex justify-content-between align-items-center m-2 my-4"
+                                            class="d-flex justify-content-between"
                                         >
-                                            <div>
-                                                <img
-                                                    class="cart-picture m-0"
-                                                    :src="product.src"
-                                                    alt=""
-                                                />
-                                            </div>
-                                            <div>
-                                                <p class="m-0">
-                                                    {{ product.name }}
-                                                    <span class="text-secondary"
-                                                        >{{
-                                                            product.price
-                                                        }}€</span
-                                                    >
-                                                </p>
-                                            </div>
-                                            <div
-                                                class="d-flex justify-content-between"
+                                            <button
+                                                type="button"
+                                                class="btn btn-secondary btn-sm"
+                                                @click="quantityMinus(product)"
                                             >
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary btn-sm"
-                                                    @click="
-                                                        quantityMinus(product)
-                                                    "
-                                                >
-                                                    -
-                                                </button>
-                                                <p class="m-0 mx-3 pt-1">
-                                                    {{ product.quantity }}
-                                                </p>
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary btn-sm"
-                                                    @click="
-                                                        quantityPlus(product)
-                                                    "
-                                                >
-                                                    +
-                                                </button>
-                                            </div>
+                                                -
+                                            </button>
+                                            <p class="m-0 mx-3 pt-1">
+                                                {{ product.quantity }}
+                                            </p>
+                                            <button
+                                                type="button"
+                                                class="btn btn-secondary btn-sm"
+                                                @click="quantityPlus(product)"
+                                            >
+                                                +
+                                            </button>
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-row-reverse">
-                                        <p class="m-0 fs-5 align-bottom">
-                                            TOTAL : {{ cartSum }} €
-                                        </p>
-                                    </div>
                                 </div>
-                                <div v-else>
-                                    <p class="m-0">Your cart is empty</p>
+                                <div class="d-flex flex-row-reverse">
+                                    <p class="m-0 fs-5 align-bottom">
+                                        TOTAL : {{ cartSum }} €
+                                    </p>
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary">
-                                    Order
-                                </button>
+                            <div v-else>
+                                <p class="m-0">Your cart is empty</p>
                             </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">
+                                Order
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -169,6 +151,22 @@ export default {
         changePage(page) {
             eventBus.changePage(page);
         },
+        addElementBackground() {
+            // crée un nouvel élément div
+            let newDiv = document.createElement("div");
+            newDiv.classList.add("modal-backdrop", "fade", "show");
+            newDiv.id = "modalBackground";
+            // ajoute le nouvel élément créé et son contenu dans le DOM
+            document.body.append(newDiv);
+        },
+        modalClose() {
+            document.getElementById("modalBackground").remove();
+            const cart = document.getElementById("cart-modal");
+            cart.classList.remove("show");
+            cart.style.opacity = "0";
+            cart.style.display = "none";
+            document.body.style.overflow = "scroll";
+        },
     },
     created() {
         this.products = eventBus.products;
@@ -185,9 +183,9 @@ export default {
     directives: {
         triggerCollapse: {
             inserted(el, binding) {
-                window.addEventListener('click', () => {
-                    nav.classList.remove('show');
-                })
+                window.addEventListener("click", () => {
+                    nav.classList.remove("show");
+                });
                 const nav = document.querySelector("#" + binding.value);
                 el.addEventListener("click", (e) => {
                     if (nav.classList.contains("show")) {
@@ -196,6 +194,19 @@ export default {
                         nav.classList.add("show");
                     }
                     e.stopPropagation();
+                });
+            },
+        },
+        triggerCartModal: {
+            inserted(el, binding) {
+                const cart = document.querySelector("#" + binding.value);
+                el.addEventListener("click", () => {
+                    if (!cart.classList.contains("show")) {
+                        cart.classList.add("show");
+                        cart.style.opacity = "100";
+                        cart.style.display = "block";
+                        document.body.style.overflow = "hidden";
+                    }
                 });
             },
         },

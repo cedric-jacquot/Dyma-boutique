@@ -1,6 +1,5 @@
 import Vue from "vue";
 import App from "./components/App";
-import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
