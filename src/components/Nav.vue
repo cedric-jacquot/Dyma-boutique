@@ -44,8 +44,8 @@
             </div>
             <!-- Modal -->
             <div class="modal fade" id="cart-modal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+                <div class="modal-dialog modal-dialog modal-dialog-centered">
+                    <div id="modal-content" class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">
                                 Cart
@@ -152,19 +152,30 @@ export default {
             eventBus.changePage(page);
         },
         addElementBackground() {
-            // crée un nouvel élément div
+            // create new div element
             let newDiv = document.createElement("div");
             newDiv.classList.add("modal-backdrop", "fade", "show");
-            newDiv.id = "modalBackground";
-            // ajoute le nouvel élément créé et son contenu dans le DOM
+            newDiv.id = "modal-background";
+            // add element in DOM BODY
             document.body.append(newDiv);
+            // test if user click on modal
+            const modalContent = document.getElementById("modal-content");
+            window.addEventListener("click", (e) => {
+                if (!modalContent.contains(e.target)) {
+                    modalContent.style.transform = "scale(1.01, 1.01)";
+                    setTimeout(() => {
+                        modalContent.style.transform = "scale(1, 1)";
+                    }, 100);
+                }
+            e.stopPropagation;
+            });
         },
         modalClose() {
-            document.getElementById("modalBackground").remove();
-            const cart = document.getElementById("cart-modal");
-            cart.classList.remove("show");
-            cart.style.opacity = "0";
-            cart.style.display = "none";
+            document.getElementById("modal-background").remove();
+            const cartModal = document.getElementById("cart-modal");
+            cartModal.classList.remove("show");
+            cartModal.style.opacity = "0";
+            cartModal.style.display = "none";
             document.body.style.overflow = "scroll";
         },
     },
